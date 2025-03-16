@@ -1,0 +1,47 @@
+{
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true
+    },
+    "parser": "@babel/eslint-parser",  // Используем Babel парсер
+    "parserOptions": {
+      "ecmaVersion": 2021,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true  // Включаем поддержку JSX
+      },
+      "requireConfigFile": false,  // Если у вас нет отдельного конфига Babel
+      "babelOptions": {
+        "presets": ["@babel/preset-react"]  // Подключаем пресет для React
+      }
+    },
+    "extends": ["airbnb/base", "plugin:react/recommended"],  // Добавляем React плагин
+    "plugins": ["react"],  // Подключаем плагин React
+    "settings": {
+      "react": {
+        "version": "detect"
+      },
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx"]
+        }
+      }
+    },
+    "rules": {
+        "quotes": ["error", "single"],  // Двойные кавычки
+        "max-len": ["error", 120, { "ignoreUrls": true }],
+        "no-tabs": "warn",
+        "no-alert": "warn",
+        "prefer-destructuring": "off",
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never"
+          }
+        ],
+        "react/react-in-jsx-scope": "off"
+    }
+  }
