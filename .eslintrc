@@ -29,6 +29,7 @@
       }
     },
     "rules": {
+        "semi": ["error", "never"],
         "quotes": ["error", "single"],  // Двойные кавычки
         "max-len": ["error", 120, { "ignoreUrls": true }],
         "no-tabs": "warn",
