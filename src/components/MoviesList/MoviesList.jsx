@@ -70,7 +70,7 @@ export default function MoviesList({
       )}
 
       {!loading && error && movies.length === 0 && (
-        <Alert message={"You haven't rated any movies yet"} type="info" showIcon />
+        <Alert message={'You have not rated any movies yet'} type="info" showIcon />
       )}
 
       {!loading && !error && movies.length === 0 && (

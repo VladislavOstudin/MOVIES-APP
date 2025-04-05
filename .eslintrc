@@ -16,8 +16,8 @@
         "presets": ["@babel/preset-react"]  // Подключаем пресет для React
       }
     },
-    "extends": ["airbnb/base", "plugin:react/recommended"],  // Добавляем React плагин
-    "plugins": ["react"],  // Подключаем плагин React
+    "extends": ["airbnb/base", "plugin:react/recommended", "prettier"],  // Добавляем React плагин
+    "plugins": ["react", "prettier"],  // Подключаем плагин React
     "settings": {
       "react": {
         "version": "detect"
