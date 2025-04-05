@@ -8,8 +8,8 @@ export default function Header() {
   setInterval(() => setNow(new Date()), 1000)
 
   return (
-    <main>
+    <div>
       <div className="time">Time now: {now.toLocaleTimeString()}</div>
-    </main>
+    </div>
   )
 }

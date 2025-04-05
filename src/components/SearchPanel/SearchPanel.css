@@ -1,4 +1,16 @@
 .searchPanel {
-    width: 1000px;
+    max-width: 500px;
     margin: 20px auto;
 }
+
+@media (min-width: 600px) and (max-width: 1499.98px) {
+    .searchPanel {
+        max-width: 450px;
+    }
+  }
+
+@media (max-width: 599.98px) {
+    .searchPanel {
+        max-width: 350px;
+    }
+  }

@@ -1,6 +1,9 @@
 .pagination-panel {
-    width: 1000px;
-    margin: 20px auto;
+    max-width: 500px;
+    width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px 0;
 }

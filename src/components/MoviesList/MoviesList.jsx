@@ -8,29 +8,46 @@ import NetworkStatus from '../../services/NetworkStatus'
 
 import './MoviesList.css'
 
-export default function MoviesList({ query, currentPage, setTotalResults }) {
+export default function MoviesList({
+  query,
+  currentPage,
+  setTotalResults,
+  guestSessionId,
+  ratedOnly,
+  ratedMovies,
+  onRateMovie,
+}) {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    if (!query) return
-
+  const fetchMovies = async () => {
+    if (!guestSessionId && ratedOnly) {
+      setTotalResults(0)
+      setMovies([])
+      return
+    }
     setLoading(true)
     setError(null)
 
-    MoviesApiService(query, currentPage)
-      .then((data) => {
-        setMovies(data.results)
-        setTotalResults(data.total_results)
-        setLoading(false)
-      })
-      .catch((err) => {
-        setError(err)
-        setLoading(false)
-        setTotalResults(0)
-      })
-  }, [query, currentPage, setTotalResults])
+    try {
+      const data = ratedOnly
+        ? await MoviesApiService.getRatedMovies(guestSessionId, currentPage)
+        : await MoviesApiService.searchMovies(query, currentPage)
+
+      setMovies(data.results)
+      setTotalResults(data.total_results)
+    } catch (err) {
+      setError(err)
+      setTotalResults(0)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchMovies()
+  }, [query, currentPage, guestSessionId, ratedOnly])
 
   return (
     <div className="movies-list">
@@ -43,7 +60,7 @@ export default function MoviesList({ query, currentPage, setTotalResults }) {
         </Flex>
       )}
 
-      {error && (
+      {error && !ratedOnly && (
         <Alert
           message="Error loading data"
           description={error.message || 'Something went wrong'}
@@ -52,14 +69,26 @@ export default function MoviesList({ query, currentPage, setTotalResults }) {
         />
       )}
 
+      {!loading && error && movies.length === 0 && (
+        <Alert message={"You haven't rated any movies yet"} type="info" showIcon />
+      )}
+
       {!loading && !error && movies.length === 0 && (
-        <Alert message="No movies found matching this request" type="info" showIcon />
+        <Alert message={'No movies found matching this request'} type="info" showIcon />
       )}
 
       {!loading && !error && movies.length > 0 && (
         <>
           {movies.map((movie) => (
-            <MoviesListItem key={movie.id} movie={movie} />
+            <MoviesListItem
+              key={`${movie.id}`}
+              movie={{
+                ...movie,
+                rating: ratedMovies[movie.id] || (ratedOnly ? movie.rating : 0),
+              }}
+              guestSessionId={guestSessionId}
+              onRate={onRateMovie}
+            />
           ))}
         </>
       )}
@@ -71,8 +100,16 @@ MoviesList.propTypes = {
   query: PropTypes.string,
   currentPage: PropTypes.number.isRequired,
   setTotalResults: PropTypes.func.isRequired,
+  guestSessionId: PropTypes.string,
+  ratedOnly: PropTypes.bool,
+  ratedMovies: PropTypes.object,
+  onRateMovie: PropTypes.func,
 }
 
 MoviesList.defaultProps = {
   query: 'return',
+  guestSessionId: null,
+  ratedOnly: false,
+  ratedMovies: {},
+  onRateMovie: () => {},
 }

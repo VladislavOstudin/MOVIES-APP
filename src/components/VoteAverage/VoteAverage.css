@@ -1,0 +1,28 @@
+.vote-average {
+    font-size: 1em;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.vote-average--down {
+    border: 2px solid #E90000;
+}
+
+.vote-average--low {
+    border: 2px solid #E97E00;
+}
+
+.vote-average--middle {
+    border: 2px solid #E9D100;
+}
+
+.vote-average--high {
+    border: 2px solid #66E900;
+}

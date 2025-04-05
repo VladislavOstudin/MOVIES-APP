@@ -1,0 +1,11 @@
+.my-stars {
+     position: absolute;
+     bottom: 20px;
+     right: 29px;
+}
+
+@media (max-width: 749.98px) {
+    .my-stars {
+        right: 15px;
+    }
+  }
