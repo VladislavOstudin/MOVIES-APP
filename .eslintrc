@@ -31,7 +31,7 @@
     "rules": {
         "semi": ["error", "never"],
         "quotes": ["error", "single"],  // Двойные кавычки
-        "max-len": ["error", 120, { "ignoreUrls": true }],
+        "max-len": ["error", 120, { "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
         "no-tabs": "warn",
         "no-alert": "warn",
         "prefer-destructuring": "off",
@@ -43,6 +43,9 @@
             "jsx": "never"
           }
         ],
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "object-curly-newline": "off",
+        "comma-dangle": "off",
+        "operator-linebreak": "off"
     }
   }
